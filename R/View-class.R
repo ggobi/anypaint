@@ -30,7 +30,8 @@ setRefClass("View",
               viewportRect = function(value) {
                 notImplemented("viewportRect")
               },
-              declareSignal(viewportRectChanged()),
+              #XXX need to talk to michael about this, not sure what it is supposed to be doing. GMB
+              #declareSignal(viewportRectChanged()),
               hasScrollBars = function(value) {
                 notImplemented("hasScrollBars")
               }

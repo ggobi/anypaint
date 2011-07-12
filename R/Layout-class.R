@@ -46,4 +46,4 @@ setRefClass("Layout",
             contains = "VIRTUAL")
 
 setMethod("dim", "Layout",
-          function(x) c(length(x$maxRowWidth), length(x$maxColumnWidth))
+          function(x) c(length(x$maxRowWidth), length(x$maxColumnWidth)))

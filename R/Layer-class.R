@@ -52,7 +52,7 @@ setRefClass("Layer",
               handlers = function(value) {
                 notImplemented("handlers")
               }
-              )
+              ),
             methods = list(
               paint = function(painter) {
                 notImplemented("paint")
