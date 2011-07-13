@@ -95,12 +95,12 @@ setRefClass("Layer",
               },
               initialize = function(...) {
                 args <- list(...)
-                handlers <-
+                .handlers <-
                   if (!is.null(args$handlers))
                     args$handlers
                   else new("LayerHandlers")
                 handlerArgs <- names(args) %in% slotNames("LayerHandlers")
-                args$handlers <- initialize(handlers, args[handlerArgs])
+                args$handlers <- initialize(.handlers, args[handlerArgs])
                 args <- args[!handlerArgs]  
                 do.call(callSuper, args)
               }

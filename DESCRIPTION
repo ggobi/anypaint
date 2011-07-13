@@ -5,7 +5,8 @@ Version: 0.1
 Date: 2011-06-12
 Author: Michael Lawrence
 Maintainer: Michael Lawrence <addy@addy.com>
-Description: Abstraction layer API for interactive graphiccs.
+Description: Abstraction layer API for interactive graphics.
 Depends: methods
+Imports: objectSignals
 License: Artistic
 LazyLoad: yes
