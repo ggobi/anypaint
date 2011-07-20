@@ -23,7 +23,7 @@ setRefClass("Layer",
                 ## as just a 2x2 matrix?
                 notImplemented("geometry")
               },
-              geometryBounds = function(value) {
+             geometryBounds = function(value) {
                 notImplemented("geometryBounds")
               },
               limits = function(value) {
@@ -31,7 +31,7 @@ setRefClass("Layer",
                 notImplemented("limits")
               },
               children = function(value) {
-                ## a list of child Layers
+               ## a list of child Layers
                 notImplemented("children")
               },
               parent = function(value) {
@@ -45,18 +45,17 @@ setRefClass("Layer",
               },
               isClipped = function(value) {
                 notImplemented("isClipped")
-              },
+             },
               hasFocus = function(value) {
                 notImplemented("hasFocus")
               },
-              handlers = function(value) {
-                notImplemented("handlers")
-              }
-              ),
-            methods = list(
+              handlers = "LayerHandlers",
               paint = function(painter) {
                 notImplemented("paint")
-              },
+             }
+              ),
+            methods = list(
+             
               locate = function(region) {
                 notImplemented("locate")
               },
@@ -73,7 +72,7 @@ setRefClass("Layer",
 ### the MVC sense.
               newView = function(...) {
                 notImplemented("newView")
-              },
+               },
 ### Q: What is the best API for constructing new Layers?  We could
 ### just create the layer with the generator and then add it later.
               
@@ -95,13 +94,21 @@ setRefClass("Layer",
               },
               initialize = function(...) {
                 args <- list(...)
-                .handlers <-
+                args$handlers <-
                   if (!is.null(args$handlers))
                     args$handlers
                   else new("LayerHandlers")
                 handlerArgs <- names(args) %in% slotNames("LayerHandlers")
-                args$handlers <- initialize(.handlers, args[handlerArgs])
-                args <- args[!handlerArgs]  
-                do.call(callSuper, args)
+                argnms = names(args)[handlerArgs]
+                for (i in argnms)
+                  slot(args$handlers , argnms) = args[[argnms]]
+                
+                #.self$handlers <- .handlers
+                
+                #args$handlers <- initialize(.handlers, args[handlerArgs])
+                #args <- args[!handlerArgs]
+                #csup = callSuper
+                #do.call(csup, args)
+                callSuper(...)
               }
               ), contains = "VIRTUAL")

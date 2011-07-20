@@ -10,3 +10,13 @@ Depends: methods
 Imports: objectSignals
 License: Artistic
 LazyLoad: yes
+Collate: LayerHandlers-class.R
+	 utils.R
+	 Layer-class.R
+	 Layout-class.R
+	 Painter-class.R
+	 Path-class.R
+	 Transform-class.R
+	 View-class.R
+	 Font-class.R
+	 Event-class.R
