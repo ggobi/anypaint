@@ -10,7 +10,8 @@ Depends: methods
 Imports: objectSignals
 License: Artistic
 LazyLoad: yes
-Collate: LayerHandlers-class.R
+Collate: GraphicsEngine-class.R
+	 LayerHandlers-class.R
 	 utils.R
 	 Layer-class.R
 	 Layout-class.R

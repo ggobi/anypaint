@@ -18,11 +18,17 @@
 
 setRefClass("Layer",
             fields = list(
+              .geometry = "matrix",
               geometry = function(value) {
                 ## the extents in world coordinates
                 ## as just a 2x2 matrix?
-                notImplemented("geometry")
+                #notImplemented("geometry")
+                if(!missing(value))
+                  .geometry <<- value
+                else
+                  .geometry
               },
+              .geometryBounds = "ANY",
              geometryBounds = function(value) {
                 notImplemented("geometryBounds")
               },
@@ -49,10 +55,44 @@ setRefClass("Layer",
               hasFocus = function(value) {
                 notImplemented("hasFocus")
               },
-              handlers = "LayerHandlers",
-              paint = function(painter) {
-                notImplemented("paint")
-             }
+              
+              .handlers = "LayerHandlers",
+              handlers = function(value)
+              {
+                if(!missing(value))
+                  {
+                    .handlers = value
+                    sapply(slotNames(.handlers),
+                           function(nm)
+                           {
+                             if(!is.null(slot(value, nm)))
+                               print(nm)
+                           })
+                  }
+
+
+              },
+              #.paint = "function",
+              #paint = function(value) {
+              #  if(!missing(value))
+              #    .paint <<- value
+              #  else
+              #    .paint
+             #}
+              #this should be "Layer" but it seems you can't have recursive class definitions like that?
+              .parent = "ANY",
+              parent = function(value)
+              {
+                if(!missing(value))
+                  {
+                    if( class(value) == "Layer"|| is.null(value) )
+                      .parent <<- value
+                    else
+                      stop("parent field must be a Layer object or NULL")
+                  }
+                else
+                  .parent
+              }
               ),
             methods = list(
              
@@ -90,6 +130,7 @@ setRefClass("Layer",
               {
                 child <- getRefClass()$new(...)
                 .self[i, j] <- child
+                child$parent = .self
                 child
               },
               initialize = function(...) {
@@ -110,5 +151,13 @@ setRefClass("Layer",
                 #csup = callSuper
                 #do.call(csup, args)
                 callSuper(...)
+              },
+              paint = function(painter)
+              {
+                pfun = .self$handlers@paint
+                if (is.null(pfun))
+                  stop("No paint handler assigned to this layer. Unable to paint.")
+                else
+                  pfun(painter)
               }
               ), contains = "VIRTUAL")

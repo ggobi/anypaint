@@ -14,7 +14,7 @@
 ### underlying widget, which could then be used as usual.
 
 setRefClass("View",
-            fields = list(
+            fields = c(
               layer = function(value) {
                 notImplemented("layer")
               },
@@ -30,8 +30,7 @@ setRefClass("View",
               viewportRect = function(value) {
                 notImplemented("viewportRect")
               },
-              #XXX need to talk to michael about this, not sure what it is supposed to be doing. GMB
-              #declareSignal(viewportRectChanged()),
+              declareSignal(viewportRectChanged()),
               hasScrollBars = function(value) {
                 notImplemented("hasScrollBars")
               }
