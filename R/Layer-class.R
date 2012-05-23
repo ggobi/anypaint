@@ -29,7 +29,7 @@ setRefClass("Layer",
                   .geometry
               },
               .geometryBounds = "ANY",
-             geometryBounds = function(value) {
+              geometryBounds = function(value) {
                 notImplemented("geometryBounds")
               },
               limits = function(value) {
@@ -51,11 +51,10 @@ setRefClass("Layer",
               },
               isClipped = function(value) {
                 notImplemented("isClipped")
-             },
+              },
               hasFocus = function(value) {
                 notImplemented("hasFocus")
               },
-              
               .handlers = "LayerHandlers",
               handlers = function(value)
               {
@@ -100,24 +99,20 @@ setRefClass("Layer",
                 notImplemented("locate")
               },
               ## factories
-### Q: do we really want the Layer to be the View factory? They
-### seem somewhat ortogonal, but what is the alternative? A separate
-### factory, like an Engine, would just have a method that takes the
-### Layer as the argument. That is just more complicated. Of course,
-### one could provide alternative Engines to allow for different
-### views. To some extent, this is possible already by passing
-### arguments to newView(). But really, how often are there
-### alternative Views? A view is just a widget that contains the
-### Layers. The View, Layer and Painter, combined, form the "view" in
-### the MVC sense.
+
+## NOTE: the Layer is the factory of the Views, because Layer and
+## View are assumed to always come from the same underlying
+## implementation. We could do this at the Engine, but this is
+## simpler and less error-prone then having a newView(layer, ...).
               newView = function(...) {
                 notImplemented("newView")
-               },
+              },
+
 ### Q: What is the best API for constructing new Layers?  We could
 ### just create the layer with the generator and then add it later.
               
-### layer <- Layer$new(handlers, ...)
-### parent[1:2,2] <- layer
+## layer <- Layer$new(handlers, ...)
+## parent[1:2,2] <- layer
 ### vs:
 ### parent$newChild(handlers, ..., rows = 1:2, cols = 2)
               
