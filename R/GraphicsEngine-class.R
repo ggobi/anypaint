@@ -13,3 +13,12 @@ setRefClass("GraphicsEngine",
               }),
             contains = "VIRTUAL")
 
+availableGraphicsEngines <- function() {
+  names(getClass("GraphicsEnginer")@subclasses)
+}
+
+defaultGraphicsEngine <- function() {
+  ## check options()
+  ## if no option set, use first available, if any
+  ## if none available, return NULL
+}
